@@ -45,28 +45,27 @@ function FriendsList({}) {
 }
 
 function Friend({ friend }) {
-  let debt;
-  switch (friend.balance) {
-    case friend.balance > 0:
-      debt = {
-        className: "green",
-        message: `${friend.name} owes you ${Math.abs(friend.balance)}`,
-      };
-      break;
-      
-    case friend.balance < 0:
-      debt = {
-        className: "red",
-        message: `you owe ${friend.name} ${Math.abs(friend.balance)}`,
-      };
-      break;
+  const debt = (() => {
+    switch (true) {
+      case friend.balance > 0:
+        return {
+          className: "green",
+          message: `${friend.name} owes you ${Math.abs(friend.balance)}`,
+        };
 
-    default:
-      debt = {
-        className: "",
-        message: `you and ${friend.name} are even`,
-      };
-  }
+      case friend.balance < 0:
+        return {
+          className: "red",
+          message: `you owe ${friend.name} ${Math.abs(friend.balance)}`,
+        };
+
+      default:
+        return {
+          className: "",
+          message: `you and ${friend.name} are even`,
+        };
+    }
+  })();
   return (
     <li>
       <img src={friend.image} alt={friend.name} />
